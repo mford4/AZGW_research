@@ -13,7 +13,7 @@ filepath = os.path.join('/Users/matthewford/Desktop/Python files/Output_files/wl
 print(filepath)
 
 wl_data2 = pd.read_csv(filepath)
-pd.options.display.float_format = '{:.0f}'.format
+pd.options.display.float_format = '{:.2f}'.format
 print(wl_data2.info())
 
 #%% 
