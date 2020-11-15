@@ -96,9 +96,7 @@ plt.savefig('/Users/matthewford/Desktop/Python files/Output_files/{0}.png'.forma
 wl_data2.dropna(subset=['depth'],inplace=True)
 basin='AGF'
 mylist=wl_data2[wl_data2['basinid']==basin]['wellid'].unique()
-# looking at what was causing our issues is the 2 lines below
-#seti=216
-#wl_data2[wl_data2['wellid']==mylist[seti]]
+
 
 # plot the wellid identified by "myid" by wl depth and year 
 fig, ax = plt.subplots()
@@ -124,14 +122,11 @@ fig, ax = plt.subplots()
 ax.plot(wl_data_basin)
 ax.set(title='Depth To Water', xlabel='Year', ylabel='Depth(ft)')
 #can plot different x scales
-plt.xlim(2018,2019)
+plt.xlim(1920,2012)
 #can plot different y scales
 plt.ylim(0,500)
 ax.legend()
 ax.grid()
 plt.show
 
-#%%
-# Cant get a boxplot i dont understand in seaborn or matplotlib
-sns.boxplot(x='year', y='basinid', data=wl_data_basin2)
 # %%
