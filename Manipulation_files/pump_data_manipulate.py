@@ -36,7 +36,7 @@ print(pump_data1)
 
 #%%
 # Find the number of non NAN values 
-pump_data1.isnull().sum(axis=1)
+nonnanvalues = pump_data1.isnull().sum(axis=1)
 
 #%%
 #Create a variable called "myid" to make locating graphing wells easier
@@ -93,7 +93,7 @@ plt.savefig('/Users/matthewford/Desktop/Python files/Output_files/{0}.png'.forma
 
 #%%
 # drop na values
-pump_data1.dropna(subset=['BILL WILLIAMS'],inplace=True)
+#pump_data1.dropna(subset=['BILL WILLIAMS'],inplace=True)
 
 #%%
 #make a list with 
@@ -109,18 +109,18 @@ mylist=pump_data1[pump_data1['AF Pumped'].unique()
 #######
 #######
 
-fig, ax = plt.subplots()
-ax.plot(pivot2.loc[mybasinid], label=mybasinid)
-ax.set(title='Acre Feet Pumped', xlabel='Year', ylabel='Volume Pumped (AF)')
+#fig, ax = plt.subplots()
+##ax.plot(pivot2.loc[mybasinid], label=mybasinid)
+#ax.set(title='Acre Feet Pumped', xlabel='Year', ylabel='Volume Pumped (AF)')
 
 
 
-for i in range(1,8):
-    print(i)
-    ax.plot(pivot2.loc[mybasinid],label=mybasinid[i])
-plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
-ax.grid()
-plt.show
+#for i in range(1,8):
+   # print(i)
+   # ax.plot(pivot2.loc[mybasinid],label=mybasinid[i])
+#plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
+#ax.grid()
+#plt.show
 
 
 #######
@@ -140,6 +140,7 @@ print(pump_data1)
 mylist=pump_data_all['Basin'].unique()
 print(mylist)
 
+
 #%%
 #Plot all of the basins by year and Af pumped
 fig, ax = plt.subplots()
@@ -152,12 +153,17 @@ plt.show
 #Save plot as png to the specified directory
 plt.savefig('/Users/matthewford/Desktop/Python files/Output_files/AFPumped_ByBasin.png', bbox_inches='tight')
 
+#%%
+fig, ax = plt.subplots()
+for i in range(len(mylist)):
+    print(i)
+    print(mylist[i])
+    ax.plot (pump_data1['AF Pumped'][mylist[i]], label=mylist[i])
 
 
-
-
-
-
+plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
+ax.grid()
+plt.show
 
 
 #%%
