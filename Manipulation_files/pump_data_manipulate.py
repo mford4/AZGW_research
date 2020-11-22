@@ -1,4 +1,3 @@
-
 # %%
 import os
 import pandas as pd
@@ -37,6 +36,7 @@ print(pump_data1)
 #%%
 # Find the number of non NAN values 
 nonnanvalues = pump_data1.isnull().sum(axis=1)
+print(nonnanvalues)
 
 #%%
 #Create a variable called "myid" to make locating graphing wells easier
@@ -90,46 +90,6 @@ plt.show
 type = mybasinid
 plt.savefig('/Users/matthewford/Desktop/Python files/Output_files/{0}.png'.format(type), bbox_inches='tight')
 
-
-#%%
-# drop na values
-#pump_data1.dropna(subset=['BILL WILLIAMS'],inplace=True)
-
-#%%
-#make a list with 
-mylist=pump_data1[pump_data1['AF Pumped'].unique()
-
-#%%
-#######
-#######
-#######
-#######
-#######
-#######
-#######
-#######
-
-#fig, ax = plt.subplots()
-##ax.plot(pivot2.loc[mybasinid], label=mybasinid)
-#ax.set(title='Acre Feet Pumped', xlabel='Year', ylabel='Volume Pumped (AF)')
-
-
-
-#for i in range(1,8):
-   # print(i)
-   # ax.plot(pivot2.loc[mybasinid],label=mybasinid[i])
-#plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
-#ax.grid()
-#plt.show
-
-
-#######
-#######
-#######
-#######
-#######
-#######
-#######
 #%%
 #Unstack pivot 2 into new df called pump_data1 
 pump_data1 = pivot2.unstack(level=0)
@@ -140,20 +100,8 @@ print(pump_data1)
 mylist=pump_data_all['Basin'].unique()
 print(mylist)
 
-
 #%%
-#Plot all of the basins by year and Af pumped
-fig, ax = plt.subplots()
-ax.plot (pump_data1, label=mylist)
-ax.set(title='Acre Feet Pumped', xlabel='year', ylabel='Volume Pumped (AF)')
-plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
-ax.grid()
-plt.show
-
-#Save plot as png to the specified directory
-plt.savefig('/Users/matthewford/Desktop/Python files/Output_files/AFPumped_ByBasin.png', bbox_inches='tight')
-
-#%%
+#Create a loop where AF Pumped is plotted by basin
 fig, ax = plt.subplots()
 for i in range(len(mylist)):
     print(i)
@@ -162,26 +110,47 @@ for i in range(len(mylist)):
 
 
 plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
+ax.set(title='Acre Feet Pumped', xlabel='Year', ylabel='Volume Pumped (AF)')
 ax.grid()
 plt.show
 
+#Save plot as png to the specified directory
+plt.savefig('/Users/matthewford/Desktop/Python files/Output_files/AFPumped_ByBasin.png', bbox_inches='tight')
 
 #%%
-pump_data_all.dropna(subset=['AF Pumped'],inplace=True)
-mylist=pump_data_all['Basin'].unique()
-print(mylist)
+#Create a loop of multiple plots of AF pumped for each basin 
+fix, axes = plt.subplots(figsize=(20,20),nrows=4, ncols=4, sharex=True, sharey=True)
+axes_list = [item for sublist in axes for item in sublist]
 
-# %%
-# plot the basin versus af pumped in a loop 
-fig, ax = plt.subplots()
-ax.plot(pivot2.loc[mylist[0]],label=mylist[0])
-ax.set(title='Depth To Water', xlabel='Year', ylabel='Depth(ft)')
+for i in range(len(mylist)):
+    ax=axes_list.pop(0)
+    ax.plot(pump_data1['AF Pumped'][mylist[i]])
+    ax.set_title(mylist[i])
+    ax.set_xlim((1980,2020))
+    ax.set_xticks(range(1980, 2020, 10))
+    ax.set_ylim((0,20000))
+    ax.grid(linewidth=0.25)
+    ax.set_xlabel('Year')
+    ax.set_ylabel('AF Pumped')
+    ax.tick_params(
+        which='both',
+        bottom='off',
+        left='off',
+        right='off',
+        top='off',
+    )
+ax.spines['left'].set_visible(False)
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.spines['bottom'].set_visible(False)
 
+for ax in axes_list:
+    ax.remove()
 
-for i in range(1,len(mylist)):
-    print(i)
-    ax.plot(pump_data_all.loc[mylist[i]],label=mylist[i])
-plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
-ax.grid()
-plt.show
+plt.tight_layout()
+
+#Save plot as png to the specified directory
+plt.savefig('/Users/matthewford/Desktop/Python files/Output_files/AFPump_individualbasins.png', bbox_inches='tight')
+
+#idk how to get black square around the last graph
 # %%
