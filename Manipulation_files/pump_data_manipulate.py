@@ -32,7 +32,8 @@ print(pivot1)
 pivot1.to_csv('/Users/matthewford/Desktop/Python files/Output_files/AFPumped_Bywellid&Year.csv')
 
 #%%
-# create a dataframe  which unstacks pivot table 1 so wellid=row & columns are years 
+# create a dataframe  which unstacks pivot table 1 so wellid=row & columns are years
+# we have 151 unique wellids with various years of pumping data 
 pump_data1 = pivot1.unstack(level=1)
 print(pump_data1)
 

@@ -47,7 +47,7 @@ wl_data2.set_index('date')
 wl_data2['year'] = pd.DatetimeIndex(wl_data2['date']).year
 
 #%%
-# Create a pivot table of avg water depth by basin and by year
+# Create  pivot table 3 of avg water depth by basin and by year
 pivot3 = pd.pivot_table(wl_data2, index=['basinid','year'], values='depth', aggfunc=['mean'])
 print(pivot3)
 
@@ -61,7 +61,7 @@ print(wl_data_basin)
 pivot3.to_csv('/Users/matthewford/Desktop/Python files/Output_files/avgwldepth_bybasin&year.csv')
 
 #%%
-# Create a pivot table of avg water depth by well id and year
+# Create pivot table 4 of avg water depth by well id and year
 pivot4 = pd.pivot_table(wl_data2, index=['wellid','year'], values='depth', aggfunc=['mean'])
 print(pivot4)
 
